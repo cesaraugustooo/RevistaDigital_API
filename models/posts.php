@@ -15,19 +15,8 @@ class Postagens
 
         $sql->execute();
         
-        if($sql->rowCount() > 0){
-            header('Content-Type: application//json');
-            $mensagem = [
-                "status" => "Postagem cadastrada com sucesso"
-            ];
-            echo json_encode($mensagem);
-        }else{
-            header('Content-Type: application//json');
-            $mensagem = [
-                "status" => "Erro ao cadastrar a postagem"
-            ];
-            echo json_encode($mensagem);
-        }
+        successJson($sql,'Postagem');
+
 
     }
 }
