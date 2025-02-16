@@ -47,6 +47,14 @@ class Postagens
 
         successJson($sql);
     }
+    public static function getID($id){
+        $db = Database::connect();
+        $sql = $db->prepare("SELECT * FROM posts WHERE id_post = :id");
+        $sql->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $sql->execute();
+        return $sql->fetch(PDO::FETCH_ASSOC);
+    }
 }
 
 
