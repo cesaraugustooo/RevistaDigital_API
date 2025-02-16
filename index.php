@@ -10,4 +10,7 @@ switch(true){
     case $rota == '/users' or preg_match("#/users/(\d+)#" , $rota , $array):
         require 'routes/users.php';
         break;
+    case $rota == '/categorias' or preg_match("#/categorias/(\d+)#", $rota , $array):
+        require 'routes/categorias.php';
+        break;
 }
