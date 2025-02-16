@@ -17,6 +17,15 @@ class Controller_Posts
     }
     public static function update($id){
         $json = json_decode(file_get_contents('php://input'),true);
-        Postagens::update($json,$id);
+        
+        $post = Postagens::getID($id);
+
+        if($post == false){
+            header('Content-type: application//json');
+            http_response_code(404);
+            echo json_encode($mensagem = ["detail" => "Post não encontrado"]);
+        }else{
+            Postagens::update($json,$id);
+        }
     }
 }
