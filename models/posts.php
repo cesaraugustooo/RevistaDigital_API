@@ -1,5 +1,6 @@
 <?php
 require_once 'database.php';
+require_once 'json_request/json_sucess_error.php';
 
 class Postagens
 {
@@ -15,9 +16,36 @@ class Postagens
 
         $sql->execute();
         
-        successJson($sql,'Postagem');
+        successJson($sql);
+    }
+    public static function get(){
+        $db = Database::connect();
+        $sql = $db->prepare("SELECT * FROM posts");
+        $sql->execute();
 
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public static function update($json,$id){
+        $db = Database::connect();
+        $sql = $db->prepare("UPDATE posts SET titulo_post = :titulo, foto_post = :foto, descricao_post = :descricao, data_criacao_post = :data, categorias_id_categoria = :categoria WHERE id_post = :id");
+        $sql->bindValue(':titulo',$json['titulo_post']);
+        $sql->bindValue(':foto',$json['foto_post']);
+        $sql->bindValue(':descricao',$json['descricao_post']);
+        $sql->bindValue(':data',$json['data_criacao_post']);
+        $sql->bindValue(':categoria',$json['categorias_id_categoria']);
+        $sql->bindValue(':id', $id , PDO::PARAM_INT);
 
+        $sql->execute();
+        successJson($sql);
+    }
+    public static function delete($id){
+        $db = Database::connect();
+        $sql = $db->prepare("DELETE FROM posts WHERE id_post = :id");
+        $sql->bindValue(':id', $id , PDO::PARAM_INT);
+
+        $sql->execute();
+
+        successJson($sql);
     }
 }
 
