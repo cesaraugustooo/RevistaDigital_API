@@ -27,10 +27,12 @@ class UserModel
     }
     public static function updateUser($json,$id){
         $db = Database::connect();
-        $sql = $db->prepare("UPDATE usuarios SET user_usuario = :user, senha_usuario = :senha, nivel = :nivel");
+        $sql = $db->prepare("UPDATE usuarios SET user_usuario = :user, senha_usuario = :senha, nivel = :nivel WHERE id_usuario = :id");
         $sql->bindValue(':user', $json['user_usuario']);
         $sql->bindValue(':senha', $json['senha_usuario']);
         $sql->bindValue(':nivel', $json['nivel']);
+        $sql->bindValue(':id', $id , PDO::PARAM_INT);
+        
         $sql->execute();
 
         successJson($sql);
