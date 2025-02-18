@@ -8,7 +8,7 @@ class CategoriasController
         CategoriaModels::post($json);
     }
     public static function get(){
-        header('Content-Type: application//json');
+        header('Content-Type: application/json');
         http_response_code(200);
         echo json_encode(CategoriaModels::get());
     }
@@ -19,7 +19,7 @@ class CategoriasController
 
         if($user == false){
             http_response_code(404);
-            header('Content-Type: application//json');
+            header('Content-Type: application/json');
             echo json_encode($mensagem = ["detail" => "Usuario não encontrado"]);
         }else{
             CategoriaModels::update($json,$id);

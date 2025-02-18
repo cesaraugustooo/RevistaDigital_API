@@ -8,9 +8,10 @@ class Controller_Posts
         Postagens::POST($json);
     }
     public static function get(){
-        header('Content-Type: application//json');
+        header('Content-Type: application/json');
         http_response_code(200);
-        echo json_encode(Postagens::get());
+        $posts = Postagens::get();
+        echo json_encode($posts);
     }
     public static function delete($id){
         Postagens::delete($id);
@@ -21,7 +22,7 @@ class Controller_Posts
         $post = Postagens::getID($id);
 
         if($post == false){
-            header('Content-type: application//json');
+            header('Content-Type: application/json');
             http_response_code(404);
             echo json_encode($mensagem = ["detail" => "Post não encontrado"]);
         }else{

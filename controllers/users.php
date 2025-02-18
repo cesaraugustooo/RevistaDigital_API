@@ -8,7 +8,7 @@ class UserController
         UserModel::postUsers($json);
     }
     public static function getUsers(){
-        header('Content-Type: application//json');
+        header('Content-Type: application/json');
         http_response_code(200);
         echo json_encode(UserModel::getUsers());
     }
@@ -19,7 +19,7 @@ class UserController
 
         if($user == false){
             http_response_code(404);
-            header('Content-Type: application//json');
+            header('Content-Type: application/json');
             echo json_encode($mensagem = ["detail" => "Usuario não encontrado"]);
         }else{
             UserModel::updateUser($json,$id);
