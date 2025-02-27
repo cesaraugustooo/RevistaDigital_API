@@ -8,6 +8,10 @@ switch($method){
         Controller_Posts::POST();
         break;
     case 'GET':
+        if(preg_match("#/posts/categoria/(\d+)#", $rota , $array)){
+            Controller_Posts::getPostCategoria($array[1]);
+            break;
+        }
         Controller_Posts::get();
         break;
     case 'DELETE':

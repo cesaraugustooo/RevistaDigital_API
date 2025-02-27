@@ -55,6 +55,14 @@ class Postagens
         $sql->execute();
         return $sql->fetch(PDO::FETCH_ASSOC);
     }
+    public static function getPostCategoria($id){
+        $db = Database::connect();
+        $sql = $db->prepare("SELECT * FROM posts WHERE categorias_id_categoria = :id");
+        $sql->bindValue(':id', $id , PDO::PARAM_INT);
+        $sql->execute();
+
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
 }
 
 

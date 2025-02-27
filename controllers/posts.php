@@ -29,4 +29,11 @@ class Controller_Posts
             Postagens::update($json,$id);
         }
     }
+    public static function getPostCategoria($id){
+        header('Content-Type: application/json');
+        http_response_code(200);
+        $posts = Postagens::getPostCategoria($id);
+        echo json_encode($posts);
+     }
+    
 }
