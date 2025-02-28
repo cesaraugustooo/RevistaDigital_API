@@ -11,6 +11,9 @@ switch($method){
         if(preg_match("#/posts/categoria/(\d+)#", $rota , $array)){
             Controller_Posts::getPostCategoria($array[1]);
             break;
+        }elseif($rota == '/posts/null'){
+            Controller_Posts::getPostNull();
+            break;
         }
         Controller_Posts::get();
         break;
@@ -22,6 +25,11 @@ switch($method){
     case 'PUT':
         if(preg_match("#/posts/(\d+)#", $rota , $array)){
             Controller_Posts::update($array[1]);
+            break;
+        }
+    case 'PATCH':
+        if(preg_match("#/posts/(\d+)#", $rota , $array)){
+            Controller_Posts::updateStatus($array[1]);
             break;
         }
 }

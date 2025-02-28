@@ -6,13 +6,15 @@ class Postagens
 {
     public static function POST($json){
         $db = Database::connect();
-        $sql = $db->prepare("INSERT INTO posts VALUES(null,:titulo,:foto,:descricao,:data, :usuario, :categoria)");
+        $sql = $db->prepare("INSERT INTO posts VALUES(null,:titulo,:foto,:descricao,:data, :usuario, :categoria, :status)"); 
         $sql->bindValue(':titulo',$json['titulo_post']);
         $sql->bindValue(':foto',$json['foto_post']);
         $sql->bindValue(':descricao',$json['descricao_post']);
         $sql->bindValue(':data',$json['data_criacao_post']);
         $sql->bindValue(':usuario',$json['usuarios_id_usuario']);
         $sql->bindValue(':categoria',$json['categorias_id_categoria']);
+        $sql->bindValue(':status',$json['status_post']);
+
 
         $sql->execute();
         
@@ -20,19 +22,21 @@ class Postagens
     }
     public static function get(){
         $db = Database::connect();
-        $sql = $db->prepare("SELECT * FROM posts");
+        $sql = $db->prepare("SELECT * FROM posts WHERE status_post = 1");
         $sql->execute();
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);
     }
     public static function update($json,$id){
         $db = Database::connect();
-        $sql = $db->prepare("UPDATE posts SET titulo_post = :titulo, foto_post = :foto, descricao_post = :descricao, data_criacao_post = :data, categorias_id_categoria = :categoria WHERE id_post = :id");
+        $sql = $db->prepare("UPDATE posts SET titulo_post = :titulo, foto_post = :foto, descricao_post = :descricao, data_criacao_post = :data, categorias_id_categoria = :categoria, status_post = :status WHERE id_post = :id");
         $sql->bindValue(':titulo',$json['titulo_post']);
         $sql->bindValue(':foto',$json['foto_post']);
         $sql->bindValue(':descricao',$json['descricao_post']);
         $sql->bindValue(':data',$json['data_criacao_post']);
         $sql->bindValue(':categoria',$json['categorias_id_categoria']);
+        $sql->bindValue(':status',$json['status_post']);
+
         $sql->bindValue(':id', $id , PDO::PARAM_INT);
 
         $sql->execute();
@@ -57,11 +61,27 @@ class Postagens
     }
     public static function getPostCategoria($id){
         $db = Database::connect();
-        $sql = $db->prepare("SELECT * FROM posts WHERE categorias_id_categoria = :id");
+        $sql = $db->prepare("SELECT * FROM posts WHERE categorias_id_categoria = :id AND status_post = 1");
         $sql->bindValue(':id', $id , PDO::PARAM_INT);
         $sql->execute();
 
         return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public static function getPostNull(){
+        $db = Database::connect();
+        $sql = $db->prepare("SELECT * FROM posts WHERE status_post = 0");
+        $sql->execute();
+
+        return $sql->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public static function updateStatus($json,$id){
+        $db = Database::connect();
+        $sql = $db->prepare("UPDATE posts SET  status_post = :status  WHERE id_post = :id");
+        $sql->bindValue(':status',$json['status_post']);
+        $sql->bindValue(':id', $id , PDO::PARAM_INT);
+
+        $sql->execute();
+        successJson($sql);
     }
 }
 

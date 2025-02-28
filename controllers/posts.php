@@ -35,5 +35,24 @@ class Controller_Posts
         $posts = Postagens::getPostCategoria($id);
         echo json_encode($posts);
      }
+     public static function getPostNull(){
+        header('Content-Type: application/json');
+        http_response_code(200);
+        $posts = Postagens::getPostNull();
+        echo json_encode($posts);
+     }
+     public static function updateStatus($id){
+        $json = json_decode(file_get_contents('php://input'),true);
+        
+        $post = Postagens::getID($id);
+
+        if($post == false){
+            header('Content-Type: application/json');
+            http_response_code(404);
+            echo json_encode($mensagem = ["detail" => "Post não encontrado"]);
+        }else{
+            Postagens::updateStatus($json,$id);
+        }
+    }
     
 }
