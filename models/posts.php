@@ -1,6 +1,6 @@
 <?php
-require_once 'database.php';
-require_once 'json_request/json_sucess_error.php';
+require_once 'C:\xampp\htdocs\RevistaDigital_API\database.php';
+require_once 'C:\xampp\htdocs\RevistaDigital_API\json_request\json_sucess_error.php';
 
 class Postagens
 {
