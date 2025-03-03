@@ -1,5 +1,5 @@
 <?php
-require_once 'models/posts.php';
+require_once 'C:\xampp\htdocs\RevistaDigital_API\models\posts.php';
 
 class Controller_Posts
 {
