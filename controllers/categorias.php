@@ -1,5 +1,5 @@
 <?php
-require_once 'models/categorias.php';
+require_once 'C:\xampp\htdocs\RevistaDigital_API\models\categorias.php';
 
 class CategoriasController
 {
