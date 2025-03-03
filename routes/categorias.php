@@ -1,8 +1,11 @@
 <?php
+header('Content-Type: application/json');
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
+header("Access-Control-Allow-Headers: Content-Type, Authorization");
+require_once 'C:\xampp\htdocs\RevistaDigital_API\controllers\categorias.php';
 
-require_once 'index.php';
-require_once 'controllers/categorias.php';
-require_once 'models/categorias.php';
+$rota = str_replace('/RevistaDigital_API', '' , $_SERVER['REQUEST_URI'] );
 
 $method = $_SERVER['REQUEST_METHOD'];
 
