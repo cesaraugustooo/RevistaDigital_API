@@ -1,5 +1,6 @@
 <?php
-require_once 'models/users.php';
+// echo __DIR__;
+require_once 'C:\xampp\htdocs\RevistaDigital_API\models\users.php';
 
 class UserController
 {
