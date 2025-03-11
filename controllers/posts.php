@@ -7,12 +7,15 @@ class Controller_Posts
         $json = json_decode(file_get_contents('php://input'),true);
         Postagens::POST($json);
     }
-    public static function get(){
+    public static function getPosts(){
         header('Content-Type: application/json');
         http_response_code(200);
+        
         $posts = Postagens::get();
+        
         echo json_encode($posts);
     }
+    
     public static function delete($id){
         Postagens::delete($id);
     }
