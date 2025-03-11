@@ -22,9 +22,11 @@ switch($method){
         }elseif($rota == '/posts/null'){
             Controller_Posts::getPostNull();
             break;
+        }elseif($rota == '/posts'){
+            Controller_Posts::getPosts();
+            break;
         }
-        Controller_Posts::get();
-        break;
+
     case 'DELETE':
         if(preg_match("#/posts/(\d+)#", $rota , $array)){
             Controller_Posts::delete($array[1]);
