@@ -4,6 +4,7 @@ require_once 'c://xampp/htdocs/RevistaDigital_API/json_request/json_sucess_error
 class Comentarios
 {
     public static function post($json){
+        $dirImg = '';
         $db = Database::connect();
         $sql = $db->prepare("INSERT INTO comentarios VALUES(null, :conteudo_comentario, :data_comentario, :categorias_id_categoria, :usuarios_id_usuario, :posts_id_post)");
         $sql->bindValue(':conteudo_comentario', $json['conteudo_comentario']);

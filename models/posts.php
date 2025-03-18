@@ -5,12 +5,13 @@ require_once 'C:\xampp\htdocs\RevistaDigital_API\json_request\json_sucess_error.
 class Postagens
 {
     public static function POST($json){
+       
         $db = Database::connect();
         $sql = $db->prepare("INSERT INTO posts VALUES(null,:titulo,:foto,:descricao,:data, :usuario, :categoria, :status)"); 
         $sql->bindValue(':titulo',$json['titulo_post']);
         $sql->bindValue(':foto',$json['foto_post']);
         $sql->bindValue(':descricao',$json['descricao_post']);
-        $sql->bindValue(':data',$json['data_criacao_post']);
+        $sql->bindValue(':data',date('Y-m-d H:i:s'));
         $sql->bindValue(':usuario',$json['usuarios_id_usuario']);
         $sql->bindValue(':categoria',$json['categorias_id_categoria']);
         $sql->bindValue(':status',$json['status_post']);
@@ -83,6 +84,7 @@ class Postagens
         $sql->execute();
         successJson($sql);
     }
+    
 }
 
 

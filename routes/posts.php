@@ -13,8 +13,13 @@ $method = $_SERVER['REQUEST_METHOD'];
 
 switch($method){
     case 'POST':
-        Controller_Posts::POST();
-        break;
+        if($rota == '/posts/images'){
+            require 'C:\xampp\htdocs\RevistaDigital_API\models\images.php';
+        }else{
+            Controller_Posts::POST();
+            break;
+        }
+
     case 'GET':
         if(preg_match("#/posts/categoria/(\d+)#", $rota , $array)){
             Controller_Posts::getPostCategoria($array[1]);

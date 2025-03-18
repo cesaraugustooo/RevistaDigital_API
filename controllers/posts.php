@@ -5,6 +5,7 @@ class Controller_Posts
 {
     public static function POST(){
         $json = json_decode(file_get_contents('php://input'),true);
+        http_response_code(201);
         Postagens::POST($json);
     }
     public static function getPosts(){
