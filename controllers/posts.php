@@ -58,5 +58,10 @@ class Controller_Posts
             Postagens::updateStatus($json,$id);
         }
     }
-    
+    public static function getID($id){
+        header('Content-Type: application/json');
+        $post = Postagens::getID($id);
+        echo json_encode($post);
+    }
 }
+

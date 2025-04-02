@@ -30,6 +30,9 @@ switch($method){
         }elseif($rota == '/posts'){
             Controller_Posts::getPosts();
             break;
+        }elseif(preg_match("#/posts/(\d+)#", $rota , $array)){
+            Controller_Posts::getID($array[1]);
+            break;
         }
 
     case 'DELETE':
