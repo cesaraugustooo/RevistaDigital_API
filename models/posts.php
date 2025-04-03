@@ -7,7 +7,7 @@ class Postagens
     public static function POST($json){
        
         $db = Database::connect();
-        $sql = $db->prepare("INSERT INTO posts VALUES(null,:titulo,:foto,:descricao,:data, :usuario, :categoria, :status, :sub , :subf)"); 
+        $sql = $db->prepare("INSERT INTO posts VALUES(null,:titulo,:foto,:descricao,:data, :usuario, :categoria, :status, :sub , :subf,:subtext)"); 
         $sql->bindValue(':titulo',$json['titulo_post']);
         $sql->bindValue(':foto',$json['foto_post']);
         $sql->bindValue(':descricao',$json['descricao_post']);
@@ -17,6 +17,8 @@ class Postagens
         $sql->bindValue(':status',$json['status_post']);
         $sql->bindValue(':sub',$json['sub_titulo_post']);
         $sql->bindValue(':subf',$json['sub_foto_post']);
+        $sql->bindValue(':subtext',$json['sub_descricao_post']);
+
 
 
 
