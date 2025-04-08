@@ -8,8 +8,11 @@ use Firebase\JWT\Key;
 
 class Login
 {
-    public static function login(){
+    
 
+    public static function login(){
+        header('Content-Type: application/json');
+    
         $json = json_decode(file_get_contents('PHP://input'),true);
         $db = Database::connect();
         $sql = $db->prepare('SELECT id_usuario,user_usuario,nivel FROM usuarios WHERE user_usuario = :user AND senha_usuario = :senha');
@@ -19,18 +22,35 @@ class Login
 
         $data = $sql->fetch(PDO::FETCH_ASSOC);
 
-        echo json_encode($data);
+      
 
-        $key = 'a1ww2ei9';
-        $payload = [
-            'id' => $data['id_usuario'],
-            'user' => $data['user_usuario'],
-            'nivel' => $data['nivel']
-        ];
+        if($data){
+            $payload = [
+                'id_user' => $data['id_usuario'],
+                'nivel' => $data['nivel'],
+                'exp' => time() + 7200 
 
-        $jwt = JWT::encode($payload,$key,'HS256');
-        $decoded = JWT::decode($jwt,new Key($key,'HS256'));
-        echo $decoded;
-        
+            ];
+            $key = '12345';
+    
+            $jwt = JWT::encode($payload,$key,'HS256');
+            $decoded = JWT::decode($jwt,new Key($key,'HS256'));
+            echo json_encode([
+                "code" => 200,
+                "jwt"=>[
+                    "token" => $jwt,
+                    "payload" =>[
+                        'id_user' => $decoded->id_user,
+                        'nivel' => $decoded->nivel
+                    ]
+                ]
+            ]);
+        }else{
+            http_response_code(401);
+            echo json_encode([
+                "code" => 401
+            ]);
+        }
+       
     }
 }
