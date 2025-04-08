@@ -8,7 +8,7 @@ class Comentarios
         $db = Database::connect();
         $sql = $db->prepare("INSERT INTO comentarios VALUES(null, :conteudo_comentario, :data_comentario, :categorias_id_categoria, :usuarios_id_usuario, :posts_id_post)");
         $sql->bindValue(':conteudo_comentario', $json['conteudo_comentario']);
-        $sql->bindValue(':data_comentario', $json['data_comentario']);
+        $sql->bindValue(':data_comentario', date('Y-m-d H:i:s'));
         $sql->bindValue(':categorias_id_categoria', $json['categorias_id_categoria']);
         $sql->bindValue(':usuarios_id_usuario', $json['usuarios_id_usuario']);
         $sql->bindValue(':posts_id_post', $json['posts_id_post']);
