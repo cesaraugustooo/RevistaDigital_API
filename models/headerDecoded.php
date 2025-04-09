@@ -15,6 +15,9 @@ class getToken
             $decoded = JWT::decode($token,new Key($key, 'HS256'));
 
             return $decoded;
+        }else{
+            header('Content-Type: application/json');
+            echo json_encode(["message"=>"erro"]);
         }
     }
 }

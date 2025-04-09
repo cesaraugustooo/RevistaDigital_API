@@ -1,6 +1,5 @@
 <?php
-require_once 'C:\xampp\htdocs\RevistaDigital_API\controllers\users.php';
-require_once 'C:\xampp\htdocs\RevistaDigital_API\models\login.php';
+require_once 'c:/xampp/htdocs/RevistaDigital_API/models/headerDecoded.php';
 
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
@@ -14,10 +13,9 @@ $rota = str_replace('/RevistaDigital_API', '' , $url );
 $method = $_SERVER['REQUEST_METHOD'];
 
 switch($method){
-    
-    case 'POST':
-        if($rota == '/login'){
-            Login::login();
-        }
+
+    case 'GET':
+        getToken::getToken('12345');
         break;
 }
+    
