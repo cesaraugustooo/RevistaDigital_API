@@ -22,9 +22,13 @@ switch($method){
         }
         break;
     case 'GET':
+        if(preg_match("#/users/(\d+)#", $rota, $array)){
+            UserController::getUserById($array[1]);
+            break;
+        }else{
         UserController::getUsers();
-        
         break;
+        }
     case 'PUT':
         if(preg_match("#/users/(\d+)#" , $rota , $array)){
             UserController::updateUser($array[1]);

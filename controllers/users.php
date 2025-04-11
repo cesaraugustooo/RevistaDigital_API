@@ -13,6 +13,11 @@ class UserController
         http_response_code(200);
         echo json_encode(UserModel::getUsers());
     }
+    public static function getUserById($id){
+        header('Content-Type: application/json');
+        http_response_code(200);
+        echo json_encode(UserModel::getUserById($id));
+    }
     public static function updateUser($id){
         $json = json_decode(file_get_contents('php://input'),true);
         
