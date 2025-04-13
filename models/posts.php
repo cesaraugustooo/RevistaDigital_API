@@ -10,7 +10,7 @@ class Postagens
         $key = '12345';
 
         $payload = getToken::getToken($key);
-        if($payload->nivel == 'Admin' or $payload->nivel == 'Professor'){
+        if($payload->nivel == 'Admin' or $payload->nivel == 'Professor' or $payload->nivel == 'Usuario'){
             $db = Database::connect();
             $sql = $db->prepare("INSERT INTO posts VALUES(null,:titulo,:foto,:descricao,:data, :usuario, :categoria, :status, :sub , :subf,:subtext)"); 
             $sql->bindValue(':titulo',$json['titulo_post']);
@@ -44,7 +44,7 @@ class Postagens
         $key = '12345';
 
         $payload = getToken::getToken($key);
-        if($payload->nivel == 'Admin' or $payload->nivel == 'Professor'){
+        if($payload->nivel == 'Admin' or $payload->nivel == 'Professor' or  $payload->nivel == 'Usuario'){
 
             $db = Database::connect();
             $sql = $db->prepare("UPDATE posts SET titulo_post = :titulo, foto_post = :foto, descricao_post = :descricao, data_criacao_post = :data, categorias_id_categoria = :categoria, status_post = :status WHERE id_post = :id");
@@ -91,6 +91,17 @@ class Postagens
 
         $sql->execute();
         return $sql->fetch(PDO::FETCH_ASSOC);
+    }
+      public static function getPostsByUserId($id){
+        $db = Database::connect();
+        $sql = $db->prepare("SELECT * FROM posts WHERE usuarios_id_usuario = :id");
+        $sql->bindValue(':id', $id, PDO::PARAM_INT);
+
+        $sql->execute();
+        $data = $sql->fetchAll(PDO::FETCH_ASSOC);
+        http_response_code(200);
+        header('Content-Type: application/json');
+        echo json_encode($data);
     }
     public static function getPostCategoria($id){
         $db = Database::connect();

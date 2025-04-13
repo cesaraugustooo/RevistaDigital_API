@@ -1,5 +1,7 @@
 <?php
 require_once 'C:\xampp\htdocs\RevistaDigital_API\controllers\posts.php';
+require_once 'C:\xampp\htdocs\RevistaDigital_API\models\posts.php';
+
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, PATCH, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type, Authorization");
@@ -33,8 +35,10 @@ switch($method){
         }elseif(preg_match("#/posts/(\d+)#", $rota , $array)){
             Controller_Posts::getID($array[1]);
             break;
+        }elseif(preg_match("#/posts/user/(\d+)#", $rota , $array)){
+            Postagens::getPostsByUserId($array[1]);
+            break;
         }
-
     case 'DELETE':
         if(preg_match("#/posts/(\d+)#", $rota , $array)){
             Controller_Posts::delete($array[1]);
